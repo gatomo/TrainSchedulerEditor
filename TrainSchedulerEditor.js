@@ -30,21 +30,21 @@ $(window).on("load", function () {
             const line_accordion_template = '<div class="accordion_one"><div class="accordion_header_one"> Line [{lineId}]: {lineName}<div class="i_box"><i class="one_i"></i></div></div><div class="accordion_inner_one"> {lineEnabled} {lineUseDefaultTimeTable} <div><p>{stops}</p></div></div></div>';
 
             const stop_index_template = '<input type="hidden" data-category="Stop" data-attribute="Index" value="{value}"/>';
-            const stop_enabled_template = '<input type="checkbox" id="enabled-{lineId}-{stopId}-{nextId}" name="enabled-{lineId}-{stopId}-{nextId}" data-category="Stop" data-attribute="Enabled" {enabled}><label for="enabled-{lineId}-{stopId}-{nextId}"> Enabled </label>';
-            const stop_useDefaultTimetable_template = '<input type="checkbox" id="usedefaulttimetable-{lineId}-{stopId}-{nextId}" name="usedefaulttimetable-{lineId}-{stopId}-{nextId}" data-category="Stop" data-attribute="UseDefaultTimeTable" {usedefaulttimetable}><label for="usedefaulttimetable-{lineId}-{stopId}-{nextId}"> UseDefaultTimetable </label>';
+            const stop_enabled_template = '<input type="checkbox" id="enabled-{lineId}-{stopIndex}" name="enabled-{lineId}-{stopIndex}" data-category="Stop" data-attribute="Enabled" {enabled}><label for="enabled-{lineId}-{stopIndex}"> Enabled </label>';
+            const stop_useDefaultTimetable_template = '<input type="checkbox" id="usedefaulttimetable-{lineId}-{stopIndex}" name="usedefaulttimetable-{lineId}-{stopIndex}" data-category="Stop" data-attribute="UseDefaultTimeTable" {usedefaulttimetable}><label for="usedefaulttimetable-{lineId}-{stopIndex}"> UseDefaultTimetable </label>';
             const stop_id_template = '<input type="hidden" data-category="Stop" data-attribute="Id" value="{value}"/>';
             const stop_name_template = '<input type="hidden" data-category="Stop" data-attribute="Name" value="{value}"/>';
             const stop_nextid_template = '<input type="hidden" data-category="Stop" data-attribute="NextId" value="{value}"/>';
             const stop_nextname_template = '<input type="hidden" data-category="Stop" data-attribute="NextName" value="{value}"/>';
             const stop_mode_template = '<input type="hidden" data-category="Stop" data-attribute="Mode" value="{value}"/>';
-            const stop_interval_template = ' <span> Interval</span ><input type="text" id="interval-{lineId}-{stopId}-{nextId}" name="interval-{lineId}-{stopId}-{nextId}" data-category="Stop" data-attribute="Interval" value="{interval}" />';
-            const stop_end_template = ' <span> End</span ><input type="text" id="end-{lineId}-{stopId}-{nextId}" name="end-{lineId}-{stopId}-{nextId}" data-category="Stop" data-attribute="End" value="{end}" />';
-            const stop_accordion_template = '<div class="accordion_two"><div class="accordion_header_two"> {stopName} to {nextName}<div class="i_box"><i class="one_i"></i></div></div><div class="accordion_inner_two"> {stopEnabled} {stopUseDefaultTimeTable} {stopMode} {stopInterval} {stopEnd}<div class="box_one"><table class="dept-table" id="departures-{lineId}-{stopId}-{nextId}"><thead><tr><th>Departures</th></tr></thead>{tables}</table><div class="box_one_column">{shiftText}<div class="box_buttons">{shiftButton}{CopyShiftButton}{CopyButton}{DeleteButton}</div></div></div></div></div>';
-            const stop_shift_text_template = '<div><span>Shift</span ><input type="text" id="shift-{lineId}-{stopId}-{nextId}" name="shift-{lineId}-{stopId}-{nextId}" value="0" /><span> minute(s)</span></div>';
-            const stop_shift_button_template = '<button id="shift-button-{lineId}-{stopId}-{nextId}" name="shift-button-{lineId}-{stopId}-{nextId}" data-target="{lineId}-{stopId}-{nextId}" data-action="shift">Shift</button>';
-            const stop_copyshift_button_template = '<button id="copyshift-button-{lineId}-{stopId}-{nextId}" name="copyshift-button-{lineId}-{stopId}-{nextId}" data-target="{lineId}-{stopId}-{nextId}" data-action="copyshift">Copy and Shift</button>';
-            const stop_copy_button_template = '<button id="copy-button-{lineId}-{stopId}-{nextId}" name="copy-button-{lineId}-{stopId}-{nextId}" data-target="{lineId}-{stopId}-{nextId}" data-action="copy" class="button_copy">Copy</button>';
-            const stop_delete_button_template = '<button id="copy-button-{lineId}-{stopId}-{nextId}" name="copy-button-{lineId}-{stopId}-{nextId}" data-target="{lineId}-{stopId}-{nextId}" data-action="delete">Delete</button>';
+            const stop_interval_template = ' <span> Interval</span ><input type="text" id="interval-{lineId}-{stopIndex}" name="interval-{lineId}-{stopIndex}" data-category="Stop" data-attribute="Interval" value="{interval}" />';
+            const stop_end_template = ' <span> End</span ><input type="text" id="end-{lineId}-{stopIndex}" name="end-{lineId}-{stopIndex}" data-category="Stop" data-attribute="End" value="{end}" />';
+            const stop_accordion_template = '<div class="accordion_two"><div class="accordion_header_two"> {stopName} to {nextName}<div class="i_box"><i class="one_i"></i></div></div><div class="accordion_inner_two"> {stopEnabled} {stopUseDefaultTimeTable} {stopMode} {stopInterval} {stopEnd}<div class="box_one"><table class="dept-table" id="departures-{lineId}-{stopIndex}"><thead><tr><th>Departures</th></tr></thead>{tables}</table><div class="box_one_column">{shiftText}<div class="box_buttons">{shiftButton}{CopyShiftButton}{CopyButton}{DeleteButton}</div></div></div></div></div>';
+            const stop_shift_text_template = '<div><span>Shift</span ><input type="text" id="shift-{lineId}-{stopIndex}" name="shift-{lineId}-{stopIndex}" value="0" /><span> minute(s)</span></div>';
+            const stop_shift_button_template = '<button id="shift-button-{lineId}-{stopIndex}" name="shift-button-{lineId}-{stopIndex}" data-target="{lineId}-{stopIndex}" data-action="shift">Shift</button>';
+            const stop_copyshift_button_template = '<button id="copyshift-button-{lineId}-{stopIndex}" name="copyshift-button-{lineId}-{stopIndex}" data-target="{lineId}-{stopIndex}" data-action="copyshift">Copy and Shift</button>';
+            const stop_copy_button_template = '<button id="copy-button-{lineId}-{stopIndex}" name="copy-button-{lineId}-{stopIndex}" data-target="{lineId}-{stopIndex}" data-action="copy" class="button_copy">Copy</button>';
+            const stop_delete_button_template = '<button id="copy-button-{lineId}-{stopIndex}" name="copy-button-{lineId}-{stopIndex}" data-target="{lineId}-{stopIndex}" data-action="delete">Delete</button>';
 
             $(window.timetable).find('Line').each(function (index_line, e_line, array_line) {
 
@@ -54,9 +54,9 @@ $(window).on("load", function () {
                     stopUseDefaultTimeTable = JSON.parse($(this).attr('UseDefaultTimeTable').toLowerCase()) ? "checked" : "";
                     var stopMode = '';
                     if ($(this).attr('Mode') === "Indivisually") {
-                        stopMode = '<select id="mode-{lineId}-{stopId}-{nextId}"><option value="Indivisually" selected>Indivisually</option><option value="IntervalTime">IntervalTime</option></select>';
+                        stopMode = '<select id="mode-{lineId}-{stopIndex}"><option value="Indivisually" selected>Indivisually</option><option value="IntervalTime">IntervalTime</option></select>';
                     } else {
-                        stopMode = '<select id="mode-{lineId}-{stopId}-{nextId}"><option value="Indivisually">Indivisually</option><option value="IntervalTime" selected>IntervalTime</option></select>';
+                        stopMode = '<select id="mode-{lineId}-{stopIndex}"><option value="Indivisually">Indivisually</option><option value="IntervalTime" selected>IntervalTime</option></select>';
                     }
 
                     var tables = '';
@@ -82,11 +82,11 @@ $(window).on("load", function () {
                         .replace("{stopMode}", stopMode)
                         .replace("{stopInterval}", stop_interval)
                         .replace("{stopEnd}", stop_end)
-                        .replaceAll("{stopId}", $(this).attr('Id'))
-                        .replaceAll("{nextId}", $(this).attr('NextId'))
+                        .replaceAll("{stopIndex}", $(this).attr('Index'))
+                        //.replaceAll("{nextId}", $(this).attr('NextId'))
                         .replaceAll("{stopName}", $(this).attr('Name'))
                         .replaceAll("{nextName}", $(this).attr('NextName'));
-                    //innerHtml += stop_accordion_template.replace("{tables}", tables).replace("{shiftText}", stop_shift_text_template).replace("{shiftButton}", stop_shift_button_template).replace("{CopyShiftButton}", stop_copyshift_button_template).replace("{CopyButton}", stop_copy_button_template).replace("{DeleteButton}", stop_delete_button_template).replace("{stopEnabled}", stop_enabled).replace("{stopUseDefaultTimeTable}", stop_usedefault).replace("{stopMode}", stopMode).replace("{stopInterval}", stop_interval).replace("{stopEnd}", stop_end).replaceAll("{stopId}", $(this).attr('Id')).replaceAll("{nextId}", $(this).attr('NextId')).replaceAll("{stopName}", $(this).attr('Name')).replaceAll("{nextName}", $(this).attr('NextName'));
+                    //innerHtml += stop_accordion_template.replace("{tables}", tables).replace("{shiftText}", stop_shift_text_template).replace("{shiftButton}", stop_shift_button_template).replace("{CopyShiftButton}", stop_copyshift_button_template).replace("{CopyButton}", stop_copy_button_template).replace("{DeleteButton}", stop_delete_button_template).replace("{stopEnabled}", stop_enabled).replace("{stopUseDefaultTimeTable}", stop_usedefault).replace("{stopMode}", stopMode).replace("{stopInterval}", stop_interval).replace("{stopEnd}", stop_end).replaceAll("{stopIndex}", $(this).attr('Id')).replaceAll("{nextId}", $(this).attr('NextId')).replaceAll("{stopName}", $(this).attr('Name')).replaceAll("{nextName}", $(this).attr('NextName'));
                 });
 
                 enabled = JSON.parse($(this).attr('Enabled').toLowerCase()) ? "checked" : "";
@@ -126,20 +126,20 @@ $(window).on("load", function () {
                         $(this).attr('UseDefaultTimeTable', $('#usedefaulttimetable-' + line)[0].checked);
 
                         $(this).find('Stop').each(function (index_stop, e_stop, array_stop) {
-                            var id = $(this).attr('Id');
-                            var nextid = $(this).attr('NextId');
-                            $(this).attr('Enabled', $('#enabled-' + line + '-' + id + '-' + nextid)[0].checked);
-                            $(this).attr('UseDefaultTimeTable', $('#usedefaulttimetable-' + line + '-' + id + '-' + nextid)[0].checked);
+                            var index = $(this).attr('Index');
+                            //var nextid = $(this).attr('NextId');
+                            $(this).attr('Enabled', $('#enabled-' + line + '-' + index)[0].checked);
+                            $(this).attr('UseDefaultTimeTable', $('#usedefaulttimetable-' + line + '-' + index)[0].checked);
 
                             // Mode‚Í‚Ç‚¤‚È‚é‚©—vŠm”F
-                            $(this).attr('Mode', $('#mode-' + line + '-' + id + '-' + nextid).first().val());
-                            $(this).attr('Interval', $('#interval-' + line + '-' + id + '-' + nextid).first().val());
-                            $(this).attr('End', $('#end-' + line + '-' + id + '-' + nextid).first().val());
+                            $(this).attr('Mode', $('#mode-' + line + '-' + index).first().val());
+                            $(this).attr('Interval', $('#interval-' + line + '-' + index).first().val());
+                            $(this).attr('End', $('#end-' + line + '-' + index).first().val());
 
                             $(this).find('Departures').empty();
 
                             var item = $(this).find('Departures').first();
-                            $('#departures-' + line + '-' + id + '-' + nextid + ' input').each(function () {
+                            $('#departures-' + line + '-' + index + ' input').each(function () {
                                 item.append('<Departure>'+$(this).val()+'</Departure>');
                             });
 
