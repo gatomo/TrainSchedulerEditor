@@ -25,12 +25,12 @@ $(window).on("load", function () {
             const line_stopcount_template = '<input type="hidden" data-category="Line" data-attribute="TransportType" value="{value}"/>';
             const line_transporttype_template = '<input type="hidden" data-category="Line" data-attribute="StopCount" value="{value}"/>';
             const line_mode_template = '<input type="hidden" data-category="Line" data-attribute="Mode" value="{value}"/>';
-            const line_enabled_template = '<input type="checkbox" id="enabled-{lineId}" name="enabled-{lineId}" data-category="Line" data-attribute="Enabled" {enabled}><label for="enabled-{lineId}"> Enabled </label>';
+            const line_enabled_template = '<input type="checkbox" id="enabled-l-{lineId}" name="enabled-l-{lineId}" data-category="Line" data-attribute="Enabled" {enabled}><label for="enabled-{lineId}"> Enabled </label>';
             const line_useDefaultTimetable_template = '<input type="checkbox" id="usedefaulttimetable-{lineId}" name="usedefaulttimetable-{lineId}" data-category="Line" data-attribute="UseDefaultTimeTable" {usedefaulttimetable}><label for="usedefaulttimetable-{lineId}"> UseDefaultTimetable </label>';
             const line_accordion_template = '<div class="accordion_one"><div class="accordion_header_one"> Line [{lineId}]: {lineName}<div class="i_box"><i class="one_i"></i></div></div><div class="accordion_inner_one"> {lineEnabled} {lineUseDefaultTimeTable} <div><p>{stops}</p></div></div></div>';
 
             const stop_index_template = '<input type="hidden" data-category="Stop" data-attribute="Index" value="{value}"/>';
-            const stop_enabled_template = '<input type="checkbox" id="enabled-{lineId}-{stopIndex}" name="enabled-{lineId}-{stopIndex}" data-category="Stop" data-attribute="Enabled" {enabled}><label for="enabled-{lineId}-{stopIndex}"> Enabled </label>';
+            const stop_enabled_template = '<input type="checkbox" id="enabled-s-{lineId}-{stopIndex}" name="enabled-s-{lineId}-{stopIndex}" data-category="Stop" data-attribute="Enabled" {enabled}><label for="enabled-{lineId}-{stopIndex}"> Enabled </label>';
             const stop_useDefaultTimetable_template = '<input type="checkbox" id="usedefaulttimetable-{lineId}-{stopIndex}" name="usedefaulttimetable-{lineId}-{stopIndex}" data-category="Stop" data-attribute="UseDefaultTimeTable" {usedefaulttimetable}><label for="usedefaulttimetable-{lineId}-{stopIndex}"> UseDefaultTimetable </label>';
             const stop_id_template = '<input type="hidden" data-category="Stop" data-attribute="Id" value="{value}"/>';
             const stop_name_template = '<input type="hidden" data-category="Stop" data-attribute="Name" value="{value}"/>';
@@ -62,7 +62,7 @@ $(window).on("load", function () {
                     var tables = '';
 
                     $(this).find('Departure').each(function () {
-                        tables += '<tr><td><input type="text" id="inteval-stop" name="inteval-stop" value="' + this.textContent + '" /><td><tr>';
+                        tables += '<tr><td><input type="text" id="inteval-stop-{lineId}-{stopIndex}" name="inteval-stop-{lineId}-{stopIndex}" value="' + this.textContent + '" /><td><tr>';
                     });
 
                     stop_enabled = stop_enabled_template.replace('{enabled}', stopEnabled);
@@ -122,13 +122,13 @@ $(window).on("load", function () {
                     // XMLデータをHTMLに基づいて更新
                     $(window.timetable).find('Line').each(function (index_line, e_line, array_line) {
                         var line = $(this).attr('LineID');
-                        $(this).attr('Enabled', $('#enabled-' + line)[0].checked);
+                        $(this).attr('Enabled', $('#enabled-l-' + line)[0].checked);
                         $(this).attr('UseDefaultTimeTable', $('#usedefaulttimetable-' + line)[0].checked);
 
                         $(this).find('Stop').each(function (index_stop, e_stop, array_stop) {
                             var index = $(this).attr('Index');
                             //var nextid = $(this).attr('NextId');
-                            $(this).attr('Enabled', $('#enabled-' + line + '-' + index)[0].checked);
+                            $(this).attr('Enabled', $('#enabled-s-' + line + '-' + index)[0].checked);
                             $(this).attr('UseDefaultTimeTable', $('#usedefaulttimetable-' + line + '-' + index)[0].checked);
 
                             // Modeはどうなるか要確認
@@ -214,6 +214,24 @@ $(window).on("load", function () {
                 } else {
                     $(this).addClass('selected'); // selectedクラスを削除
                 }
+            });
+
+            $(document).on('change', '[id^="enabled-l-"]', function () {
+                var index = this.id.replace('enabled-l-', '');
+                var enabled = $(this).prop('checked');
+                // LineのUseDefaultTimeTable要素
+                $('[id^="usedefaulttimetable-' + index + '"]').prop('disabled', !enabled);
+                // Stop要素
+                $('[id*="-' + index + '-"]').not('#enabled-l-' + index).prop('disabled', !enabled);
+            });
+
+            $(document).on('change', '[id^="enabled-s-"]', function () {
+                var index = this.id.replace('enabled-s-', '');
+                var enabled = $(this).prop('checked');
+                // LineのUseDefaultTimeTable要素
+                $('[id^="usedefaulttimetable-' + index + '"]').prop('disabled', !enabled);
+                // Stop要素
+                $('[id*="-' + index + '"]').not('#enabled-s-' + index).prop('disabled', !enabled);
             });
         });
 

@@ -1,4 +1,13 @@
-﻿.drop-area {
+﻿.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+.preview {
+    padding-top: 180px;
+}
+.drop-area {
   border: 3px dashed #C8C8C8 !important;
   background-color: #F0F0F0 !important;
   border-radius: 5px;
